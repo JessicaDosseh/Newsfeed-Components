@@ -85,6 +85,11 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  }, 
+  {
+    title: 'Applied JS is hard', 
+    date: 'November 1 2019', 
+    firstParagraph: 'Text goes here...', 
   }
 ];
 
@@ -112,3 +117,66 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+function newsfeedCreator(articleTitle, articleDate, paragraph1, paragraph2, paragraph3) {
+
+  // create component tags 
+  const article = document.createElement('div');
+  const title = document.createElement('h2');
+  const date = document.createElement('p');
+  const firstParagraph = document.createElement('p');
+  const secondParagraph = document.createElement('p');
+  const thirdParagraph = document.createElement('p');
+
+  const buttonBox = document.createElement('span');
+  const buttonOpen = document.createElement('button');
+  const buttonClose = document.createElement('button');
+
+
+  // adding a class to the tags 
+  article.classList.add('article');
+  date.classList.add('date');
+  buttonBox.classList.add('expandButton')
+  buttonOpen.classList.add('close');
+  buttonClose.classList.add('close');
+
+  const open = '\u25bc';
+  const close = '\u25b2';
+
+  // adding content inside the tags 
+  buttonOpen.textContent = open;
+  buttonClose.textContent = close;
+   
+  title.textContent = articleTitle;
+  date.textContent = articleDate;
+  firstParagraph.textContent = paragraph1;
+  secondParagraph.textContent = paragraph2;
+  thirdParagraph.textContent = paragraph3;
+
+
+  // button click function 
+  buttonOpen.addEventListener('click', () => {
+    article.classList.toggle('article-open');
+  });
+
+
+  // nesting the tags in the right place 
+  article.appendChild(title);
+  article.appendChild(date);
+  article.appendChild(firstParagraph);
+  article.appendChild(secondParagraph);
+  article.appendChild(thirdParagraph);
+
+  article.appendChild(buttonOpen);
+
+  return article;
+}
+
+
+// calling the HTML 
+const articleHolder = document.querySelector('.articles');
+
+// calling the data in the array 
+data.forEach((data) => {
+  articleHolder.appendChild(newsfeedCreator(data.title, data.date, data.firstParagraph, data.secondParagraph, data.thirdParagraph));
+})
